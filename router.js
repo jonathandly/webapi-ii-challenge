@@ -20,10 +20,10 @@ router.get('/:id', async(req, res) => {
     try {
         const post = await DB.findById(req.params.id);
 
-        if(post) {
-            res.status(200).json(post);
-        } else {
+        if(!post.length) {
             res.status(404).json({ message: "The post with the specified ID does not exist." });
+        } else {
+            res.status(200).json(post);
         }
     } catch(err) {
         console.log(err);
